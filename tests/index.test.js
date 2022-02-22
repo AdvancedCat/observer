@@ -1,5 +1,5 @@
-import { foo } from '../src'
+import Observer from '../src'
 
-test('Hello World', () => {
-    expect(foo()).toBe('Hello World')
+test('Observer', () => {
+    expect(1).toBe(1)
 })

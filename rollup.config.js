@@ -13,7 +13,7 @@ const banner = `/*!
 */`
 
 // 在这里指定抛出去的包名称
-const BundleName = pkg.name.split('-').join('_')
+const BundleName = 'EventObserver'
 const commonOutput = {
     name: BundleName,
     format: 'umd',
