@@ -15,7 +15,7 @@
         "version": "npm run build && npm run changelog && npm run authors && git add --all",
         "test": "jest",
         "prepare": "husky install",
-        "docs": "typedoc"
+        "gen-docs": "typedoc"
     },
     "author": "advancedcat <wshx1938@gmail.com>",
     "license": "MIT",
