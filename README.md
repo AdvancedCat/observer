@@ -1,3 +1,5 @@
-# pkg-template-ts
+# @flame/observer
 
-The template for package using typescript.
+A small event observer.
+
+See more information, 👉 [DOCS](./docs/index.html)
