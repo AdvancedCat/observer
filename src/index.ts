@@ -14,7 +14,7 @@ function isEmpty(name: string, cb: Listener) {
 /**
  * 事件观察者类
  */
-export class Observer {
+export default class Observer {
     eventMap: Record<string, Listener[]> = {}
 
     private _init(name: string) {
