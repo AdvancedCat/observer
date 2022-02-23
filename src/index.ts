@@ -1,9 +1,9 @@
 interface Listener {
-    (): any
+    (): unknown
     once?: boolean
 }
 
-function isListener(fn: any): fn is Listener {
+function isListener(fn: Listener): fn is Listener {
     return fn && typeof fn === 'function'
 }
 
@@ -29,14 +29,14 @@ export default class Observer {
      * @param {Function} cb 事件回调
      * @returns Observer
      */
-    on(name: string, cb: Listener) {
-        if (isEmpty(name, cb)) return
+    on(name: string, cb: Listener): Observer {
+        if (isEmpty(name, cb)) return this
 
         this._init(name)
 
         const callbacks = this.eventMap[name]
         if (callbacks.indexOf(cb) > -1) {
-            return
+            return this
         }
         callbacks.push(cb)
         return this
@@ -48,8 +48,8 @@ export default class Observer {
      * @param {Function} cb 事件回调
      * @returns Observer
      */
-    once(name: string, cb: Listener) {
-        if (isEmpty(name, cb)) return
+    once(name: string, cb: Listener): Observer {
+        if (isEmpty(name, cb)) return this
 
         cb.once = true
         this.on(name, cb)
@@ -62,15 +62,15 @@ export default class Observer {
      * @param {Function} cb 事件回调
      * @returns Observer
      */
-    off(name: string, cb: Listener) {
-        if (isEmpty(name, cb)) return
+    off(name: string, cb: Listener): Observer {
+        if (isEmpty(name, cb)) return this
 
-        if (!(name in this.eventMap)) return
+        if (!(name in this.eventMap)) return this
 
         const callbacks = this.eventMap[name]
-        let idx = callbacks.indexOf(cb)
+        const idx = callbacks.indexOf(cb)
         if (idx === -1) {
-            return
+            return this
         }
         callbacks.splice(idx, 1)
         return this
@@ -83,13 +83,13 @@ export default class Observer {
      * @param ctx {Object|null} 回调绑定的上下文,默认null
      * @returns
      */
-    emit(name: string, args = [], ctx = null) {
+    emit(name: string, args = [], ctx = null): void {
         if (!name) return
 
         if (!(name in this.eventMap)) return
 
         const callbacks = this.eventMap[name]
-        let removes: typeof callbacks = []
+        const removes: typeof callbacks = []
         callbacks.forEach((cb) => {
             cb.apply(ctx, args as any)
             cb.once && removes.push(cb)
@@ -104,7 +104,7 @@ export default class Observer {
     /**
      * 注销所有监听事件
      */
-    reset() {
+    reset(): void {
         Object.keys(this.eventMap).forEach((key) => {
             this.eventMap[key].length = 0
         })
