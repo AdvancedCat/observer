@@ -22,7 +22,7 @@ jobs:
                   ls ${{ github.workspace }}
 
             - name: install dependencies
-              run: yarn intall --frozen-lockfile
+              run: yarn --frozen-lockfile
 
             - name: run unit test
               run: npm test
